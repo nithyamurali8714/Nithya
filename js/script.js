@@ -1,47 +1,6 @@
-// -------------------- LOGIN / REGISTER --------------------
-
-// Login existing user
-function login() {
-  let username = document.getElementById("username").value;
-  let password = document.getElementById("password").value;
-
-  let storedPass = localStorage.getItem(username);
-
-  if (!username || !password) {
-    document.getElementById("loginmsg").innerHTML = "❌ Please enter username and password";
-    return;
-  }
-
-  if (storedPass == null) {
-    document.getElementById("loginmsg").innerHTML = "❌ User not found. Please register first.";
-  } else if (storedPass === password) {
-    window.location.href = "dashboard.html";
-  } else {
-    document.getElementById("loginmsg").innerHTML = "❌ Incorrect password.";
-  }
+function login(){
+  window.location.href = "dashboard.html";
 }
-
-// Register new user
-function registerUser() {
-  let username = document.getElementById("newUsername").value;
-  let password = document.getElementById("newPassword").value;
-
-  if (!username || !password) {
-    document.getElementById("regmsg").innerHTML = "❌ Please fill all fields";
-    return;
-  }
-
-  if(localStorage.getItem(username)){
-    document.getElementById("regmsg").innerHTML = "❌ Username already exists!";
-    return;
-  }
-
-  // Save user in localStorage
-  localStorage.setItem(username, password);
-  document.getElementById("regmsg").innerHTML = "✅ Registration successful! Go to login.";
-}
-
-// -------------------- TRIP PLANNER --------------------
 
 function planTrip() {
   let from = document.getElementById("from").value;
@@ -55,37 +14,17 @@ function planTrip() {
     return;
   }
 
-  const params = new URLSearchParams({ from, to, date, mode });
+  document.getElementById("output").innerHTML =
+    `✅ <b>Trip Planned Successfully!</b><br><br>
+     🔹 From: ${from}<br>
+     🔹 To: ${to}<br>
+     📅 Date: ${date}<br>
+     🚍 Travel Mode: ${mode}<br><br>
 
-  fetch('/api/endpoint?' + params.toString())
-    .then(function(response) {
-      if (!response.ok) throw new Error('Network response was not ok');
-      return response.json();
-    })
-    .then(function(data) {
-      if (data.error) {
-        document.getElementById("output").innerHTML = '❌ ' + data.error;
-        return;
-      }
-
-      document.getElementById("output").innerHTML =
-        `✅ <b>${data.message}</b><br><br>
-         🔹 From: ${data.from}<br>
-         🔹 To: ${data.to}<br>
-         📅 Date: ${data.date}<br>
-         🚍 Travel Mode: ${data.mode}<br><br>
-
-         🛣 ${data.recommendations.route}<br>
-         🏨 ${data.recommendations.hotels}<br>
-         🚨 ${data.recommendations.support}`;
-    })
-    .catch(function(err) {
-      document.getElementById("output").innerHTML = '❌ Error: ' + err.message;
-    });
+     🛣 Safe route suggested<br>
+     🏨 Best hotels recommended<br>
+     🚨 Emergency support enabled`;
 }
-
-// -------------------- HOTEL BOOKING --------------------
-
 function bookHotel(){
   let hotel = document.getElementById("hotel").value;
   let checkin = document.getElementById("checkin").value;
@@ -102,8 +41,6 @@ function bookHotel(){
      📅 Check-in: ${checkin}<br>
      📅 Check-out: ${checkout}`;
 }
-
-// -------------------- SOS EMERGENCY --------------------
 
 function sendSOS(){
   if (navigator.geolocation) {
