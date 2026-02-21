@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Solo Travel Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    /* Dashboard grid layout */
+    .dashboard-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap:20px;
+      max-width:1000px;
+      margin:auto;
+    }
+
+    .dashboard-card{
+      cursor:pointer;
+      text-align:center;
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+      transition:0.3s;
+      background:white;
+    }
+
+    .dashboard-card:hover{
+      transform: translateY(-5px);
+      box-shadow:0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .sos-card{
+      border:2px solid #d00000;
+    }
+
+    .dashboard-card h3{
+      margin-bottom:10px;
+    }
+
+    .dashboard-card p{
+      font-size:14px;
+      color:#555;
+    }
+
+    /* Embedded Map */
+    #dashboard-map{
+      height:200px;
+      border-radius:10px;
+      margin-top:10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>Smart Solo Travel Dashboard</header>
+
+<nav>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="planner.html">Trip Planner</a>
+  <a href="sos.html">Emergency SOS</a>
+  <a href="hotel.html">Hotel Booking</a>
+  <a href="map.html">Full Map</a>
+  <a href="login.html">Logout</a>
+</nav>
+
+<div class="container dashboard-grid">
+
+  <div class="dashboard-card" onclick="location.href='planner.html'">
+    <h3>🧭 Trip Planner</h3>
+    <p>Plan safe routes & journeys</p>
+  </div>
+
+  <div class="dashboard-card" onclick="location.href='hotel.html'">
+    <h3>🏨 Hotel Booking</h3>
+    <p>Find & book safe hotels</p>
+  </div>
+
+  <div class="dashboard-card sos-card" onclick="location.href='sos.html'">
+    <h3>🚨 Emergency SOS</h3>
+    <p>Send alert with live location</p>
+  </div>
+
+  <div class="dashboard-card">
+    <h3>🗺 Live Map</h3>
+    <div id="dashboard-map"></div>
+    <p>Real-time location preview</p>
+  </div>
+
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // Initialize dashboard map
+  var dashMap = L.map('dashboard-map').setView([8.5241, 76.9366], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19
+  }).addTo(dashMap);
+
+  var dashMarker = null;
+
+  if(navigator.geolocation){
+    navigator.geolocation.watchPosition(function(pos){
+      var lat = pos.coords.latitude;
+      var lon = pos.coords.longitude;
+
+      if(dashMarker){
+        dashMarker.setLatLng([lat, lon]);
+      }else{
+        dashMarker = L.marker([lat, lon]).addTo(dashMap)
+          .bindPopup("📍 You are here").openPopup();
+      }
+
+      dashMap.setView([lat, lon], 13);
+    });
+  }
+</script>
+
+</body>
+</html>

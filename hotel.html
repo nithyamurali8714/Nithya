@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hotel Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>Hotel Booking</header>
+
+<nav>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="planner.html">Trip Planner</a>
+  <a href="sos.html">Emergency SOS</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <h2>🏨 Book Your Hotel</h2>
+
+    <select id="hotel">
+      <option value="">Select Hotel</option>
+      <option>OYO Rooms</option>
+      <option>Treebo</option>
+      <option>Taj Hotel</option>
+      <option>FabHotel</option>
+      <option>Budget Inn</option>
+    </select>
+
+    <input type="date" id="checkin">
+    <input type="date" id="checkout">
+
+    <button onclick="bookHotel()">Book Now</button>
+
+    <p id="hotelmsg"></p>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

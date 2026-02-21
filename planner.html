@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trip Planner</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <h2>Smart Trip Planner</h2>
+
+    <input type="text" id="from" placeholder="From Location">
+    <input type="text" id="to" placeholder="To Destination">
+    <input type="date" id="date">
+
+    <select id="mode">
+      <option value="">Select Travel Mode</option>
+      <option>Bus</option>
+      <option>Train</option>
+      <option>Flight</option>
+      <option>Car</option>
+    </select>
+
+    <button onclick="planTrip()">Generate Travel Plan</button>
+
+    <p id="output"></p>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
