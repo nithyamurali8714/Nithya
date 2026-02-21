@@ -121,11 +121,11 @@ Easy navigation between different modules like dashboard, trip planner, and emer
 ### For Software:
 
 #### Screenshots (Add at least 3)
-[screenshot1]image1.png
+![screenshot1](image1.png)
 this show the introduction page
-[screenshot2]image2.png
+![screenshot2](image2.png)
 this show the login page
-[screenshot3]image3.png
+![screenshot3](image3.png)
 **System Architecture:**
 
          ┌──────────────┐
